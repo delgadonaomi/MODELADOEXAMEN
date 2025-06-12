@@ -1,17 +1,17 @@
-# Usa una imagen base de Python
-FROM python:3.10-slim
+FROM python:3.11-slim
 
-# Establece el directorio de trabajo dentro del contenedor
+# Establece el directorio de trabajo
 WORKDIR /app
 
-# Copia los archivos del proyecto al contenedor
-COPY . .
-
-# Instala las dependencias
+# Copia las dependencias e instálalas
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expone el puerto que Cloud Run usará
-EXPOSE 8080
+# Copia el resto del código
+COPY . .
 
-# Comando para arrancar la app
-CMD ["sh", "-c", "uvicorn playground:app --host 0.0.0.0 --port $PORT"]
+# Configura la variable de entorno que Cloud Run usa
+ENV PORT=8080
+
+# Comando que ejecuta tu app directamente
+CMD ["python", "playground.py"]

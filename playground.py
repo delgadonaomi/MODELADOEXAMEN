@@ -40,4 +40,5 @@ finance_agent = Agent(
 app = Playground(agents=[web_agent, finance_agent]).get_app()
 
 if __name__ == "__main__":
-    serve_playground_app("playground:app", reload=True)
+    import os
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
