@@ -4,12 +4,13 @@ from agno.playground import Playground, serve_playground_app
 from agno.storage.sqlite import SqliteStorage
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.yfinance import YFinanceTools
+from agno.models.groq import Groq
 
 agent_storage: str = "tmp/agents.db"
 
 web_agent = Agent(
-    name="Web Agent",
-    model=OpenAIChat(id="gpt-4o"),
+    name="Naomi",
+    model=Groq(id="llama-3.3-70b-versatile"),
     tools=[DuckDuckGoTools()],
     instructions=["Always include sources"],
     # Store the agent sessions in a sqlite database
@@ -26,7 +27,7 @@ web_agent = Agent(
 
 finance_agent = Agent(
     name="Finance Agent",
-    model=OpenAIChat(id="gpt-4o"),
+    model=Groq(id="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"),
     tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
     instructions=["Always use tables to display data"],
     storage=SqliteStorage(table_name="finance_agent", db_file=agent_storage),

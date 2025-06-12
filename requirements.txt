@@ -1,0 +1,5 @@
+groq
+duckduckgo-search
+sqlite-utils
+uvicorn
+fastapi
